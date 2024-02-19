@@ -23,6 +23,12 @@
       "title": "Testing a 4th post",
       "datetime": "July 01, 2023 4:34:36 PM",
       "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    },
+    {
+      "id": 5,
+      "title": "test post",
+      "datetime": "February 19, 2024 4:44:46 PM",
+      "body": "Here is my test post"
     }
   ]
 }
