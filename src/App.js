@@ -9,34 +9,10 @@ import Missing from "./Missing";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
+import api from "./api/posts";
 
 function App() {
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      title: "My First Post",
-      datetime: "July 01, 2023 4:34:36 PM",
-      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    },
-    {
-      id: 2,
-      title: "My 2nd Post",
-      datetime: "July 01, 2023 4:34:36 PM",
-      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    },
-    {
-      id: 3,
-      title: "My 3rd Post",
-      datetime: "July 01, 2023 4:34:36 PM",
-      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    },
-    {
-      id: 4,
-      title: "My 4th Post",
-      datetime: "July 01, 2023 4:34:36 PM",
-      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    },
-  ]);
+  const [posts, setPosts] = useState([]);
 
   const [search, setSearch] = useState("");
 
@@ -47,6 +23,26 @@ function App() {
   const [postBody, setPostBody] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await api.get("/posts");
+        setPosts(response.data);
+      } catch (err) {
+        if (err.response) {
+          // not in the 200 response range
+          console.log(err.response.data);
+          console.log(err.response.status);
+          console.log(err.response.headers);
+        } else {
+          console.log(`Error: ${err.message}`);
+        }
+      }
+    };
+
+    fetchPosts();
+  }, []);
 
   useEffect(() => {
     const filteredResults = posts.filter(
